@@ -6,10 +6,10 @@ function AddOrEditcategories() {
   return (
     <>
       <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Add Categroy</h1>
+        <h1 class="text-center text-white display-6">Add Category</h1>
         <ol class="breadcrumb justify-content-center mb-0">
           <li class="breadcrumb-item"><Link to="/">Home</Link></li>
-          <li class="breadcrumb-item active text-white">Add Categroy</li>
+          <li class="breadcrumb-item active text-white">Add Category</li>
         </ol>
       </div>
 
