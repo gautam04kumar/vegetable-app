@@ -17,12 +17,38 @@ function Profile() {
         <div className="container py-5">
           <div className='row'>
             <div className='col-sm-3'>
-              <SideBar/>
-              <div className=' col-sm-9'></div>
+              <SideBar />
+            </div>
+            <div className=' col-sm-9'>
+              <div class="card">
+                <div className='card-header d-flex justify-content-between'>
+                  <h4>Profile</h4>
+                  <button className='btn btn-primary text-white'>Edit profile</button>
+                </div>
+                <div class="card-body">
+                  <p className='profile-data'>
+                    <span className='title'>Name</span>
+                    <span className='data'>Gautam</span>
+                  </p>
+
+                  <p className='profile-data'>
+                    <span className='title'>Name</span>
+                    <span className='data'>Gautam</span>
+                  </p>
+
+                  <p className='profile-data'>
+                    <span className='title'>Name</span>
+                    <span className='data'>Gautam</span>
+                  </p>
+                  
+                  <p className='profile-data'>
+                    <span className='title'>Name</span>
+                    <span className='data'>Gautam</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </>

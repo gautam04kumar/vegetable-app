@@ -1,8 +1,9 @@
 import React from 'react'
 
+
 function AddOrEditProduct() {
   return (
-    <div>AddOrEditProduct</div>
+    <div></div>
   )
 }
 

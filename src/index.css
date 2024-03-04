@@ -101,3 +101,19 @@ label {
 .loginbttm {
     padding: 0px;
 }
+
+/* profile */
+.profile-data {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.profile-data,
+title {
+    font-weight: bold;
+}
+.form-control:disabled, .form-control:read-only{
+    background-color:inherit;
+}
