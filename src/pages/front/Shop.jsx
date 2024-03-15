@@ -3,7 +3,7 @@ import React from 'react'
 function Shop() {
   return (
     <>
-          {/* <!-- Single Page Header start --> */}
+         
         <div className="container-fluid page-header py-5">
             <h1 className="text-center text-white display-6">Shop</h1>
             <ol className="breadcrumb justify-content-center mb-0">
@@ -12,10 +12,7 @@ function Shop() {
                 <li className="breadcrumb-item active text-white">Shop</li>
             </ol>
         </div>
-        {/* <!-- Single Page Header End -->
-
-
-        <!-- Fruits Shop Start--> */}
+       
         <div className="container-fluid fruite py-5">
             <div className="container py-5">
                 <h1 className="mb-4">Fresh fruits shop</h1>
@@ -93,23 +90,23 @@ function Shop() {
                                             <h4>Additional</h4>
                                             <div className="mb-2">
                                                 <input type="radio" className="me-2" id="Categories-1" name="Categories-1" value="Beverages"/>
-                                                <label for="Categories-1"> Organic</label>
+                                                <label htmlFor="Categories-1"> Organic</label>
                                             </div>
                                             <div className="mb-2">
                                                 <input type="radio" className="me-2" id="Categories-2" name="Categories-1" value="Beverages"/>
-                                                <label for="Categories-2"> Fresh</label>
+                                                <label htmlFor="Categories-2"> Fresh</label>
                                             </div>
                                             <div className="mb-2">
                                                 <input type="radio" className="me-2" id="Categories-3" name="Categories-1" value="Beverages"/>
-                                                <label for="Categories-3"> Sales</label>
+                                                <label htmlFor="Categories-3"> Sales</label>
                                             </div>
                                             <div className="mb-2">
                                                 <input type="radio" className="me-2" id="Categories-4" name="Categories-1" value="Beverages"/>
-                                                <label for="Categories-4"> Discount</label>
+                                                <label htmlFor="Categories-4"> Discount</label>
                                             </div>
                                             <div className="mb-2">
                                                 <input type="radio" className="me-2" id="Categories-5" name="Categories-1" value="Beverages"/>
-                                                <label for="Categories-5"> Expired</label>
+                                                <label htmlFor="Categories-5"> Expired</label>
                                             </div>
                                         </div>
                                     </div>

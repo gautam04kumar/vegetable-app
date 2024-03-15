@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../SideBar'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCategoryStart } from '../../../../redux/actions/category.action';
+// import { category } from '../../../../redux/sagas/category.saga';
 
 function Categories() {
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.category.categories);
+
+  useEffect(() => {
+    dispatch(getCategoryStart())
+    console.log(categories);
+  }, [categories.length])
   return (
     <>
-      <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Category</h1>
-        <ol class="breadcrumb justify-content-center mb-0">
-          <li class="breadcrumb-item"><Link to="/">Home</Link></li>
-          <li class="breadcrumb-item active text-white">Category</li>
+      <div className="container-fluid page-header py-5">
+        <h1 className="text-center text-white display-6">Category</h1>
+        <ol className="breadcrumb justify-content-center mb-0">
+          <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+          <li className="breadcrumb-item active text-white">Category</li>
         </ol>
       </div>
 
@@ -20,13 +30,13 @@ function Categories() {
               <SideBar />
             </div>
             <div className=' col-sm-9'>
-              <div class="card">
+              <div className="card">
                 <div className='card-header d-flex justify-content-between'>
                   <h4>Category</h4>
                   <Link to="/admin/category/create" className='btn btn-primary text-white'>Add Category</Link>
                 </div>
-                <div class="card-body">
-                  <table class="table table-striped">
+                <div className="card-body">
+                  <table className="table table-striped">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -37,22 +47,28 @@ function Categories() {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th >1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                          <Link to="/admin/category/edit" className='btn btn-warning'>
-                            Edit
-                          </Link>
+                      {
+                        categories.length > 0 && categories.map((category, indext) => (
+                          <tr key={indext}>
+                            <th>{indext+1}</th>
+                            <td><img src={category.image} alt="//" height={"80px"} /></td>
+                            <td>{category.name}</td>
+                            <td>{category.status ==="1"?"Active":"Inactive"}</td>
+                            <td>@mdo</td>
+                            <td>
+                              <Link to={`/admin/category/edit/${category.id}`} className='btn btn-warning'>
+                                Edit
+                              </Link>
 
-                          <button className='btn btn-danger mx-2'>
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                      
+                              <button className='btn btn-danger mx-2'>
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      }
+
+
                     </tbody>
                   </table>
                 </div>

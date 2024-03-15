@@ -5,11 +5,11 @@ import SideBar from '../SideBar'
 function Profile() {
   return (
     <>
-      <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Profile</h1>
-        <ol class="breadcrumb justify-content-center mb-0">
-          <li class="breadcrumb-item"><Link to="/">Home</Link></li>
-          <li class="breadcrumb-item active text-white">profile</li>
+      <div className="container-fluid page-header py-5">
+        <h1  className="text-center text-white display-6">Profile</h1>
+        <ol  className="breadcrumb justify-content-center mb-0">
+          <li  className="breadcrumb-item"><Link to="/">Home</Link></li>
+          <li  className="breadcrumb-item active text-white">profile</li>
         </ol>
       </div>
 
@@ -20,12 +20,12 @@ function Profile() {
               <SideBar />
             </div>
             <div className=' col-sm-9'>
-              <div class="card">
+              <div  className="card">
                 <div className='card-header d-flex justify-content-between'>
                   <h4>Profile</h4>
                   <button className='btn btn-primary text-white'>Edit profile</button>
                 </div>
-                <div class="card-body">
+                <div  className="card-body">
                   <p className='profile-data'>
                     <span className='title'>Name</span>
                     <span className='data'>Gautam</span>

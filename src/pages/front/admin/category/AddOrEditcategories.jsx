@@ -1,47 +1,146 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import SideBar from '../SideBar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addCategoryStart } from '../../../../redux/actions/category.action'
+import { storage } from '../../../../firebase-config'
+
+
+const initialState = {
+  name: '',
+  image: '',
+  status: 0
+}
 
 function AddOrEditcategories() {
+
+  const dispatch = useDispatch()
+  const navigate=useNavigate();
+
+
+  let [formData, setFormData] = useState(initialState)
+
+  let { name, image, status } = formData
+
+  const inputChange = (event) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value
+    }));
+
+  };
+
+  const submit = (event) => {
+    event.preventDefault()
+    dispatch(addCategoryStart(formData));
+
+    setTimeout(() => {
+      navigate('/admin/category')
+    }, 2000);
+    
+  }
+  const uploadFile = (event) => {
+
+    
+    const storageRef = ref(storage, `category/${event.target.files[0].name}`);
+
+    const uploadTask = uploadBytesResumable(storageRef,event.target.files[0]);
+
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          // console.log('File available at', );
+
+          setFormData((prevState) => ({
+            ...prevState,
+            [event.target.name]: downloadURL
+          }));
+        });
+      }
+    );
+  }
+
   return (
     <>
-      <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Add Category</h1>
-        <ol class="breadcrumb justify-content-center mb-0">
-          <li class="breadcrumb-item"><Link to="/">Home</Link></li>
-          <li class="breadcrumb-item active text-white">Add Category</li>
+      <div className="container-fluid page-header py-5">
+        <h1 className="text-center text-white display-6">Add Category</h1>
+        <ol className="breadcrumb justify-content-center mb-0">
+          <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+          <li className="breadcrumb-item active text-white">Add Category</li>
         </ol>
       </div>
 
       <div className="container-fluid py-5">
         <div className="container py-5">
           <div className='row'>
-            <div className='col-sm-3'>
+            <div className='col-sm-3'> 
               <SideBar />
             </div>
             <div className=' col-sm-9'>
-              <div class="card">
+              <div className="card">
                 <div className='card-header d-flex justify-content-between'>
                   <h4>Add Category</h4>
                   <Link to="/admin/category/" className='btn btn-primary text-white'>Back</Link>
                 </div>
-                <div class="card-body">
-                  <form action=''>
-                    <div class="mb-3">
+                <div className="card-body">
+                  <form onSubmit={submit}>
+                    <div className="mb-3">
                       <label htmlFor="name" className="form-label">Name</label>
-                      <input type="text" className="form-control" id="name" placeholder="category name" />
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        placeholder="category name"
+                        value={name}
+                        name='name'
+
+                        onChange={inputChange}
+                      />
                     </div>
 
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label htmlFor="image" className="form-label">Image</label>
-                      <input type="file" className="form-control" id="image" />
+                      <input 
+                      type="file" 
+                      className="form-control"
+                       id="image"
+                       name='image'
+                       onChange={uploadFile} />
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label htmlFor="status" className="form-label">Status</label>
-                      <select className='form-control'>
+                      <select className='form-control'
+                        id="status"
+                        name='status'
+                        defaultValue={status}
+                        onChange={inputChange}>
                         <option value="" hidden>select Status</option>
-                        <option value="">Active</option>
-                        <option value="">Inactive</option>
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
                       </select>
                     </div>
                     <div className='row'>
@@ -52,7 +151,7 @@ function AddOrEditcategories() {
                       <div className='col-sm-6 d-grid'>
                         <button type='reset' className='btn btn-primary text-white'>Reset</button>
                       </div>
-                      
+
 
                     </div>
 
@@ -66,5 +165,6 @@ function AddOrEditcategories() {
     </>
   )
 }
+
 
 export default AddOrEditcategories
