@@ -52,7 +52,7 @@ function Router() {
         <Route path='category'>
           <Route path='' element={<Categories />} />
           <Route path='create' element={<AddOrEditcategories />} />
-          <Route path='edit/id' element={<AddOrEditcategories />} />
+          <Route path='edit/:id' element={<AddOrEditcategories />} />
         </Route>
 
         <Route path='order'>

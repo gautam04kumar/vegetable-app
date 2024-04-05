@@ -1,22 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import SideBar from '../SideBar'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { addCategoryStart } from '../../../../redux/actions/category.action'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCategoryStart, updateCategoryStart } from '../../../../redux/actions/category.action'
 import { storage } from '../../../../firebase-config'
 
 
-const initialState = {
-  name: '',
-  image: '',
-  status: 0
+let initialState = {
 }
 
 function AddOrEditcategories() {
 
   const dispatch = useDispatch()
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+
+  let { id } = useParams()
+
+  const categories = useSelector(state => state.category.categories);
+  let category;
+  if (id) {
+    category = categories.find(category => category.id === id)
+ 
+    if (category) {
+      initialState = category;
+    } else {
+      initialState = {
+        name: '',
+        image: '',
+        status: '0'
+      }
+    }
+  } else {
+    initialState = {
+      name: '',
+      image: '',
+      status: '0'
+    }
+  }
 
 
   let [formData, setFormData] = useState(initialState)
@@ -33,19 +54,25 @@ function AddOrEditcategories() {
 
   const submit = (event) => {
     event.preventDefault()
-    dispatch(addCategoryStart(formData));
 
-    setTimeout(() => {
-      navigate('/admin/category')
-    }, 2000);
-    
+    if (id) {
+      dispatch(updateCategoryStart(formData,id));
+    } else{
+      dispatch(addCategoryStart(formData));
+    }
+
+
+      setTimeout(() => {
+        navigate('/admin/category')
+      }, 2000);
+
   }
   const uploadFile = (event) => {
 
-    
+
     const storageRef = ref(storage, `category/${event.target.files[0].name}`);
 
-    const uploadTask = uploadBytesResumable(storageRef,event.target.files[0]);
+    const uploadTask = uploadBytesResumable(storageRef, event.target.files[0]);
 
     // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
@@ -83,6 +110,9 @@ function AddOrEditcategories() {
       }
     );
   }
+  useEffect(() => {
+
+  }, [id])
 
   return (
     <>
@@ -97,13 +127,13 @@ function AddOrEditcategories() {
       <div className="container-fluid py-5">
         <div className="container py-5">
           <div className='row'>
-            <div className='col-sm-3'> 
+            <div className='col-sm-3'>
               <SideBar />
             </div>
             <div className=' col-sm-9'>
               <div className="card">
                 <div className='card-header d-flex justify-content-between'>
-                  <h4>Add Category</h4>
+                  <h4>{id ? "Edit" : "Add"} Category</h4>
                   <Link to="/admin/category/" className='btn btn-primary text-white'>Back</Link>
                 </div>
                 <div className="card-body">
@@ -124,12 +154,18 @@ function AddOrEditcategories() {
 
                     <div className="mb-3">
                       <label htmlFor="image" className="form-label">Image</label>
-                      <input 
-                      type="file" 
-                      className="form-control"
-                       id="image"
-                       name='image'
-                       onChange={uploadFile} />
+                      <input
+                        type="file"
+                        className="form-control"
+                        id="image"
+                        name='image'
+                        onChange={uploadFile} />
+                      {
+                        image &&
+                        <div className='mt-4 w-25 '>
+                          <img className="w-50" src={image} alt="" />
+                        </div>
+                      }
                     </div>
                     <div className="mb-3">
                       <label htmlFor="status" className="form-label">Status</label>

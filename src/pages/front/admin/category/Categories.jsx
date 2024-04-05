@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import SideBar from '../SideBar'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategoryStart } from '../../../../redux/actions/category.action';
-// import { category } from '../../../../redux/sagas/category.saga';
+import { deleteCategoryStart, getCategoryStart } from '../../../../redux/actions/category.action';
+
 
 function Categories() {
   const dispatch = useDispatch();
@@ -11,8 +11,13 @@ function Categories() {
 
   useEffect(() => {
     dispatch(getCategoryStart())
-    console.log(categories);
-  }, [categories.length])
+    
+  },[categories.length])
+
+  const deleteCategory = (category) => {
+    dispatch(deleteCategoryStart(category))
+    
+  }
   return (
     <>
       <div className="container-fluid page-header py-5">
@@ -50,17 +55,18 @@ function Categories() {
                       {
                         categories.length > 0 && categories.map((category, indext) => (
                           <tr key={indext}>
-                            <th>{indext+1}</th>
+                            <th>{indext + 1}</th>
                             <td><img src={category.image} alt="//" height={"80px"} /></td>
                             <td>{category.name}</td>
-                            <td>{category.status ==="1"?"Active":"Inactive"}</td>
-                            <td>@mdo</td>
+                            <td>{category.status === "1" ? "Active" : "Inactive"}</td>
                             <td>
                               <Link to={`/admin/category/edit/${category.id}`} className='btn btn-warning'>
                                 Edit
                               </Link>
 
-                              <button className='btn btn-danger mx-2'>
+                              <button
+                                className='btn btn-danger mx-2'
+                                onClick={()=>deleteCategory(category)}>
                                 Delete
                               </button>
                             </td>
