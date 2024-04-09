@@ -28,7 +28,7 @@ export const addProductToFirebase = async (product) => {
     let productRef = collection(db, "product")
 
     const docRef = await addDoc(productRef, product);
-    // console.log("Document written with ID: ", docRef.id);
+    console.log("Document written with ID: ", docRef.id);
 
 
 

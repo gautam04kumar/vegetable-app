@@ -40,7 +40,7 @@ function* deleteProduct({ payload }) {
 function* updateProduct({ payload }) {
 
     try {
-        yield updateProductToFirebase(payload.Product,payload.id)
+        yield updateProductToFirebase(payload.product,payload.id)
         yield put(getProductStart())
     } catch (error) {
         yield put(updateProductError(error.message))

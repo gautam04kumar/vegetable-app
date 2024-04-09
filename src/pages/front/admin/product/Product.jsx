@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../SideBar'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteProductStart } from '../../../../redux/actions/product.action ';
+
 
 function Product() {
+  const dispatch=useDispatch();
+  const products =useSelector(state=>state.product.products);
+
+  useEffect(()=>{
+
+  },[products.length])
+
+  const deleteProduct = (product) => {
+    dispatch(deleteProductStart(product))
+    
+  }
   return (
     <>
       <div className="container-fluid page-header py-5">
@@ -32,28 +46,39 @@ function Product() {
                         <th>#</th>
                         <th>Image</th>
                         <th>Name</th>
+                        <th>Short Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th>ggg</th>
-                        <td><img src="" alt="//" height={"80px"} /></td>
-                        <td>hhjj</td>
-                        <td>ghgh</td>
+                      {
+                        products.length >0 && products.map((product,index)=>(
+                          <tr key={index}>
+                        <th>{index +1}</th>
+                        <td><img src={product.image} alt="//" height={"80px"} /></td>
+                        <td>{product.name}</td>
+                        <td>{product.shortDescription}</td>
+                        <td>{product.price}</td>
+                        <td>{product.quantity}</td>
+                        <td>{product.status ==='1'? 'Active':'Inactive'}</td>
                         <td>
-                          <Link to={`/admin/category/edit/`} className='btn btn-warning'>
+                          <Link to={`/admin/product/edit/${product.id}`} className='btn btn-warning'>
                             Edit
                           </Link>
 
                           <button
                             className='btn btn-danger mx-2'
+                            onClick={()=>deleteProduct(product)}
                           >
                             Delete
                           </button>
                         </td>
                       </tr>
+                        ))
+                      }
 
 
                     </tbody>

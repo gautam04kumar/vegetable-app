@@ -7,8 +7,7 @@ import { addCategoryStart, updateCategoryStart } from '../../../../redux/actions
 import { storage } from '../../../../firebase-config'
 
 
-let initialState = {
-}
+let initialState = {}
 
 function AddOrEditcategories() {
 
