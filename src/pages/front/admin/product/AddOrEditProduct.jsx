@@ -135,7 +135,7 @@ let [formData, setFormData] = useState(initialState)
         <h1 className="text-center text-white display-6">Product</h1>
         <ol className="breadcrumb justify-content-center mb-0">
           <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-          <li className="breadcrumb-item active text-white">Product</li>
+          <li className="breadcrumb-item active text-white">Add Product</li>
         </ol>
       </div>
 
@@ -251,7 +251,7 @@ let [formData, setFormData] = useState(initialState)
                     </div>
 
                     <div className="mb-3">
-                      <label htmlFor="category" className="form-label">Category</label>
+                      <label htmlFor="category" className="form-label">Product</label>
                       <select className='form-control'
                         id="category"
                         name='category'
