@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import SideBar from '../SideBar'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { storage } from '../../../../firebase-config'
+import { auth, storage } from '../../../../firebase-config'
 import { useDispatch, useSelector } from 'react-redux'
 import { addUserStart, updateUserStart } from '../../../../redux/actions/user.action'
+import {  createUserWithEmailAndPassword } from "firebase/auth";
 
 let initialState = {}
 function AddOrEditUser() {
@@ -107,13 +108,24 @@ function AddOrEditUser() {
       }
     );
   }
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault()
     
     if (id) {
       dispatch(updateUserStart(formData,id))
     }else{
+     try {
+      let userData =await createUserWithEmailAndPassword(auth,formData.email,formData.password)
+
+      delete formData.password
+      formData.uid=userData.user.uid;
       dispatch(addUserStart(formData))
+     } catch (error) {
+      console.log(error.message)
+     }
+     
+  
+      
     }
     
 

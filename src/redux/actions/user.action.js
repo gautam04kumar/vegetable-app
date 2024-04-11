@@ -1,4 +1,4 @@
-import { ADD_USER_ERROR, ADD_USER_START, ADD_USER_SUCCESS, DELETE_USER_ERROR, DELETE_USER_START, DELETE_USER_SUCCESS, GET_USER_ERROR, GET_USER_START, GET_USER_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_START, UPDATE_USER_SUCCESS } from "../constants/user.constan"
+import { ADD_USER_ERROR, ADD_USER_START, ADD_USER_SUCCESS, DELETE_USER_ERROR, DELETE_USER_START, DELETE_USER_SUCCESS, GET_USER_ERROR, GET_USER_START, GET_USER_SUCCESS, LOGINED_USER_ERROR, LOGINED_USER_START, LOGINED_USER_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_START, UPDATE_USER_SUCCESS } from "../constants/user.constan"
 
 
 
@@ -63,5 +63,21 @@ export const updateUserSuccess = (user, id) => ({
 })
 export const updateUserError = (error) => ({
     type: UPDATE_USER_ERROR,
+    payload: error
+})
+
+
+
+//  add
+export const loginedUserStart = (user) => ({
+    type: LOGINED_USER_START,
+    payload: user
+})
+export const loginedUserSuccess = (user) => ({
+    type: LOGINED_USER_SUCCESS,
+    payload: user
+})
+export const loginedUserError = (error) => ({
+    type: LOGINED_USER_ERROR,
     payload: error
 })
