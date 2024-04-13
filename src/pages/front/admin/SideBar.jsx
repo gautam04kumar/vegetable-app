@@ -1,7 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
+import { logoutUserStart } from '../../../redux/actions/user.action';
 
 function SideBar() {
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+    const logout = () => {
+        dispatch(logoutUserStart())
+        setTimeout(() => {
+            navigate('/login')
+        },800);
+    }
     return (
         <>
             <ul className="list-group">
@@ -27,7 +38,7 @@ function SideBar() {
                 </li>
 
                 <li className="list-group-item">
-                    <Link >Logout</Link>
+                    <Link onClick={logout} >Logout</Link>
                 </li>
 
             </ul>

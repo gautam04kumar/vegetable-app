@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SideBar from '../SideBar'
+import { useSelector } from 'react-redux';
 
 function Profile() {
+  const loginedUser = useSelector(state => state.user.loginedUser);
+
+  useEffect(()=>{
+
+  },[loginedUser])
   return (
     <>
       <div className="container-fluid page-header py-5">
@@ -23,27 +29,39 @@ function Profile() {
               <div  className="card">
                 <div className='card-header d-flex justify-content-between'>
                   <h4>Profile</h4>
-                  <button className='btn btn-primary text-white'>Edit profile</button>
+                  <Link to='/admin/profile/edit' className='btn btn-primary text-white'>Edit profile</Link>
                 </div>
                 <div  className="card-body">
                   <p className='profile-data'>
                     <span className='title'>Name</span>
-                    <span className='data'>Gautam</span>
+                    <span className='data'>{loginedUser.name}</span>
                   </p>
 
                   <p className='profile-data'>
-                    <span className='title'>Name</span>
-                    <span className='data'>Gautam</span>
+                    <span className='title'>Email</span>
+                    <span className='data'>{loginedUser.email}</span>
                   </p>
 
                   <p className='profile-data'>
-                    <span className='title'>Name</span>
-                    <span className='data'>Gautam</span>
+                    <span className='title'>Image</span>
+                    <span className='data'>
+                      <img src={loginedUser.image}/>
+                    </span>
                   </p>
                   
                   <p className='profile-data'>
-                    <span className='title'>Name</span>
-                    <span className='data'>Gautam</span>
+                    <span className='title'>Contact Number</span>
+                    <span className='data'>{loginedUser.conctactNumber}</span>
+                  </p>
+
+                  <p className='profile-data'>
+                    <span className='title'>Address</span>
+                    <span className='data'>{
+                    `
+                    ${loginedUser.conctactNumbe} ${loginedUser.address} ${loginedUser.city} ${loginedUser.state}
+                       ${loginedUser.country} ${loginedUser.pincode}
+                    `
+                    }</span>
                   </p>
                 </div>
               </div>
