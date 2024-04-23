@@ -1,4 +1,4 @@
-import { ProfileEditUserSuccess } from "../actions/user.action"
+
 import { GET_USER_SUCCESS, LOGINED_USER_SUCCESS, LOGOUT_USER_SUCCESS, PROFILE_EDIT_USER_SUCCESS } from "../constants/user.constan"
 
 
@@ -6,8 +6,9 @@ const initialState = {
     users: localStorage.getItem('users') ? JSON.parse(
         localStorage.getItem('users')
     ) : [],
+    
 
-    loginedUser: localStorage.getItem('loginedUser') ? JSON.parse(
+    loginedUser: localStorage.getItem('loginedUser') ? (
         localStorage.getItem('loginedUser')
     ) : {}
 }
