@@ -58,7 +58,7 @@ function Product() {
                         products.length >0 && products.map((product,index)=>(
                           <tr key={index}>
                         <th>{index +1}</th>
-                        <td><img src={product.image} alt="//" height={"80px"} /></td>
+                        <td><img className='rounded-circle' src={product.image} alt="//" height={"80px"} /></td>
                         <td>{product.name}</td>
                         <td>{product.shortDescription}</td>
                         <td>{product.price}</td>

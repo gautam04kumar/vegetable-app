@@ -9,7 +9,7 @@ import { getCartStart } from "../actions/cart.action";
 function* getOrder() {
     try {
         let result = yield getOrderFromFirebase();
-        yield put(getOrderSuccess(result))
+        // yield put(getOrderSuccess(result))
         
     } catch (error) {
         yield put(getOrderError(error.message))

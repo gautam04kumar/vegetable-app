@@ -39,7 +39,7 @@ function Checkout() {
         orderObject.address = formData
         orderObject.orderPlaced = true
         let copyCartItem = { ...cart, orderPlaced: true }
-        dispatch(placeOrderStart(orderObject, cart))
+        dispatch(placeOrderStart(orderObject, copyCartItem))
 
         setTimeout(() => {
             navigate('/thank')

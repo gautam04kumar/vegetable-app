@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { logoutUserStart } from '../../../redux/actions/user.action';
 
@@ -7,6 +7,9 @@ function SideBar() {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
+    const loginedUser = useSelector(state => state.user.loginedUser);
+
     const logout = () => {
         dispatch(logoutUserStart())
         setTimeout(() => {
@@ -24,18 +27,23 @@ function SideBar() {
                 <li className="list-group-item">
                     <Link to="/admin/order">Order</Link>
                 </li>
-
-                <li className="list-group-item">
-                    <Link to="/admin/product">Product</Link>
-                </li>
-
-                <li className="list-group-item">
-                    <Link to="/admin/category">Categories</Link>
-                </li>
-
-                <li className="list-group-item">
-                    <Link to="/admin/user">User</Link>
-                </li>
+                 
+                 {
+                    loginedUser.role=='1' && (
+                        <><li className="list-group-item">
+                        <Link to="/admin/product">Product</Link>
+                    </li>
+    
+                    <li className="list-group-item">
+                        <Link to="/admin/category">Categories</Link>
+                    </li>
+    
+                    <li className="list-group-item">
+                        <Link to="/admin/user">User</Link>
+                    </li></>
+                     )
+                 }
+                 
 
                 <li className="list-group-item">
                     <Link onClick={logout} >Logout</Link>

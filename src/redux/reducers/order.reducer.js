@@ -17,7 +17,7 @@ export const orderReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                cartItem: { ...action.payload }
+                orders: [...action.payload]
             }
 
         default:

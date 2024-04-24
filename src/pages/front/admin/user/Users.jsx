@@ -59,8 +59,8 @@ function Users() {
                           <th>{<img src={user.image} />}</th>
                           <th>{user.name}</th>
                           <th>{user.email}</th>
-                          <th>{user.role === '1' ? 'Admin' : 'Customer'}</th>
-                          <th>{user.status === '1' ? 'Avtive' : 'Inactive'}</th>
+                          <th>{user.role == '1' ? 'Admin' : 'Customer'}</th>
+                          <th>{user.status == '1' ? 'Avtive' : 'Inactive'}</th>
                           <td>
                             <Link to={`/admin/user/edit/${user.id}`} className='btn btn-warning'>
                               Edit

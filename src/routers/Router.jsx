@@ -57,7 +57,7 @@ function Router() {
 
         <Route path='order'>
           <Route path='' element={<Order />} />
-          <Route path='view' element={<OrderView />} />
+          <Route path='view/:id' element={<OrderView />} />
         </Route>
 
         <Route path='user'>
